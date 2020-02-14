@@ -1,24 +1,51 @@
-﻿namespace Chessington.GameEngine
+﻿using System.Linq;
+
+namespace Chessington.GameEngine
 {
     public class ScoreCalculator
     {
-        private Board _board;
+        private IBoard _board;
 
-        public ScoreCalculator(Board board)
+        public ScoreCalculator(IBoard board)
         {
             _board = board;
         }
-
+        
         public int GetWhiteScore()
         {
-            // Should add up the value of all of the pieces that white has taken.
-            return 0;
-        }
+            int whiteScore = 0;// Should add up the value of all of the pieces that white has taken.
+            foreach (var piece in _board.CapturedPieces)
+            {
+                if (piece.Player == Player.White)
+                {
+                    whiteScore += piece.CaptureValue; 
+                }
+            }
 
+            return whiteScore;
+
+            //return _board.CapturedPieces.Sum(piece => piece.CaptureValue);
+        }
         public int GetBlackScore()
         {
             // Should add up the value of all of the pieces that black has taken.
-            return 0;
+            int blackScore = 0;// Should add up the value of all of the pieces that white has taken.
+            foreach (var piece in _board.CapturedPieces)
+            {
+                if (piece.Player == Player.Black)
+                {
+                    blackScore += piece.CaptureValue; 
+                }
+            }
+
+            return blackScore;
         }
+
+        public string WhoIsWinning()
+        {
+            //who is winning code
+            return "";
+        }
+        
     }
 }
